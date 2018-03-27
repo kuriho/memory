@@ -1,0 +1,196 @@
+* {
+  box-sizing: border-box;
+}
+html, body {
+  height: 100%;
+}
+body {
+  background: black;
+  min-height: 100%;
+  font-family: "Arial", sans-serif;
+}
+.wrap {
+  position: relative;
+  height: 100%;
+  min-height: 500px;
+  padding-bottom: 20px;
+}
+.board {
+  transform-style: preserve-3d;
+  min-height: 100%;
+  height: 100%;
+}
+
+.card {
+  float: left;
+  width: 16.66666%;
+  height: 25%;
+  padding: 5px;
+  text-align: center;
+  display: block;
+  perspective: 500px;
+  position: relative;
+  cursor: pointer;
+  z-index: 50;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+  user-drag: none; 
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+@media (max-width: 800px) {
+  .card {
+    width: 25%;
+    height: 16.666%;
+  }
+}
+.card .inside {
+  width: 100%;
+  height: 100%;
+  display: block;
+  transform-style: preserve-3d;
+  transition: 0.4s ease-in-out;
+  background: white;
+}
+
+.card .inside.picked, .card .inside.matched, .card .inside.got {
+  transform: rotateY(180deg);
+}
+
+.card .inside.matched {
+  animation: 1s flash ease-in-out;
+  animation-delay: 0.4s;
+}
+
+.card .inside.got {
+	opacity: 0;
+}
+
+.card .front, .card .back {
+  border: 1px solid black;
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+}
+.card .front img {
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
+  max-height: 100%;
+  
+  user-drag: none; 
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+.card .front {
+  transform: rotateY(-180deg);
+}
+@media (max-width: 800px) {
+  .card .front {
+    padding: 5px;
+  }
+}
+.card .back {
+  transform: rotateX(0);
+  background: #145ba1;
+  -webkit-animation-name: deactivate;
+  -webkit-animation-duration: 1s;
+  animation-name: deactivate;
+  animation-duration: 1s;
+}
+
+.card .back.active{
+  transform: rotateX(0);
+  background: #1e90ff;
+  -webkit-animation-name: activate;
+  -webkit-animation-duration: 0.4s;
+  animation-name: activate;
+  animation-duration: 0.4s;
+}
+
+.modal {
+  display: none;
+  position: fixed; 
+  z-index: 1; 
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+  -webkit-animation-name: fadeIn;
+  -webkit-animation-duration: 0.4s;
+  animation-name: fadeIn;
+  animation-duration: 0.4s
+}
+
+.modal-content {
+  position: fixed;
+  bottom: 0;
+  background-color: #fefefe;
+  width: 100%;
+  -webkit-animation-name: slideIn;
+  -webkit-animation-duration: 0.4s;
+  animation-name: slideIn;
+  animation-duration: 0.4s
+}
+
+.modal-header {
+  padding: 2px 16px;
+  background-color: #1e90ff;
+  color: white;
+}
+
+.modal-body {padding: 2px 16px;}
+
+.modal-footer {
+  padding: 2px 16px;
+  background-color: #1e90ff;
+  color: white;
+}
+
+@-webkit-keyframes slideIn {
+  from {bottom: -300px; opacity: 0} 
+  to {bottom: 0; opacity: 1}
+}
+
+@keyframes slideIn {
+  from {bottom: -300px; opacity: 0}
+  to {bottom: 0; opacity: 1}
+}
+
+@-webkit-keyframes fadeIn {
+  from {opacity: 0} 
+  to {opacity: 1}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0} 
+  to {opacity: 1}
+}
+
+@keyframes flash {
+  from {background: #bcffcc; }
+  to {background: white; }
+}
+
+@keyframes activate {
+  from{background: #145ba1}
+  to{background: #1e90ff}
+}
+
+@keyframes deactivate {
+  from{background: #1e90ff}
+  to{background: #145ba1}
+}
